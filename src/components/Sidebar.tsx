@@ -1,46 +1,63 @@
 import Link from 'next/link';
 import { Session } from 'next-auth';
+import { 
+  Home, 
+  PenSquare, 
+  Search, 
+  Bell, 
+  Mail, 
+  Bookmark, 
+  Users, 
+  User, 
+  MoreHorizontal,
+  Sparkles
+} from 'lucide-react';
 
 export default function Sidebar({ session }: { session: Session | null }) {
   return (
-    <aside className="p-4 h-screen sticky top-0">
-      <nav className="space-y-4">
-        <Link href="/" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>🏠</span> 主页
+    <nav className="space-y-2">
+      <Link href="/" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Home size={26} />
+        <span>主页</span>
+      </Link>
+      <Link href="/explore" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Search size={26} />
+        <span>探索</span>
+      </Link>
+      <Link href="/notifications" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Bell size={26} />
+        <span>通知</span>
+      </Link>
+      <Link href="/messages" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Mail size={26} />
+        <span>私信</span>
+      </Link>
+      <Link href="/bookmarks" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Bookmark size={26} />
+        <span>书签</span>
+      </Link>
+      <Link href="/communities" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Users size={26} />
+        <span>社群</span>
+      </Link>
+      <Link href="/premium" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <Sparkles size={26} />
+        <span>Premium</span>
+      </Link>
+      {session?.user?.role === 'admin' && (
+        <Link href="/write" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+          <PenSquare size={26} />
+          <span>写文章</span>
         </Link>
-        {session?.user?.role === 'admin' && (
-          <Link href="/write" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-            <span>✍️</span> 写文章
-          </Link>
-        )}
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 探索
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 通知
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 私信
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> grok
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 社群
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> Premium
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 认证组织
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 个人资料
-        </Link>
-        <Link href="/about" className="flex items-center gap-2 text-lg hover:text-[#1DA1F2]">
-          <span>ℹ️</span> 更多
-        </Link>
-      </nav>
-    </aside>
+      )}
+      <Link href="/profile" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <User size={26} />
+        <span>个人资料</span>
+      </Link>
+      <Link href="/more" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
+        <MoreHorizontal size={26} />
+        <span>更多</span>
+      </Link>
+    </nav>
   );
 }

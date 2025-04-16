@@ -1,10 +1,11 @@
 // types/post.ts
 // src/types/post.ts
-export type Post = {
+export interface Post {
     id: string;
     title: string;
     slug: string;
-    content?: string;
-    created_at: string; // 改为蛇形命名
-    tags?: string[]; // 适配 text[]，可选
-  };
+    content: string;
+    created_at: string;
+    updated_at: string;
+    tags?: string[];
+}
