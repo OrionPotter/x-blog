@@ -1,25 +1,32 @@
-import { supabase } from '@/lib/supabase';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { getPostBySlug } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { data: post } = await supabase
-    .from('posts')
-    .select('title, content, createdAt')
-    .eq('slug', params.slug)
-    .single();
-
-  if (!post) {
-    notFound();
+interface PostPageProps {
+    params: Promise<{ slug: string }>;
   }
-
-  return (
-    <article className="space-y-4">
-      <h1 className="text-3xl font-bold">{post.title}</h1>
-      <p className="text-gray-400 text-sm">
-        {new Date(post.createdAt).toLocaleDateString('zh-CN')}
-      </p>
-      <MarkdownRenderer content={post.content} />
-    </article>
-  );
-}
+  
+  /**
+   * 首页点击显示单页内容
+   * @param param0 
+   * @returns 
+   */
+  export default async function PostPage({ params }: PostPageProps) {
+    const { slug } = await params;  
+  
+    const post = await getPostBySlug(slug);
+  
+    if (!post) {
+      notFound();
+    }
+  
+    return (
+      <main className="prose mx-auto py-10">
+        <h1>{post.title}</h1>
+        <p className="text-gray-500 text-sm">
+          {new Date(post.date).toLocaleDateString()}
+        </p>
+        <article dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
+      </main>
+    );
+  }
+  

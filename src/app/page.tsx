@@ -8,18 +8,21 @@ export default async function Home() {
 
   return (
     <div className="max-w-content mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">欢迎来到 X-Blog</h1>
-        <p className="text-text-secondary">分享你的想法和见解</p>
+      <div className="mb-10">
+        <h1 className="text-3xl font-extrabold mb-3 text-gray-900">欢迎来到 OrionPotter's X-Blog</h1>
+        <p className="text-base italic text-gray-500 tracking-wide">
+            分享知识是一种永恒的财富。
+        </p>
       </div>
+
       
       <div className="space-y-8">
         {posts.map((post) => (
-          <article key={post.slug} className="article">
+          <article key={post.slug} className="article-card">
             <div className="article-header">
               <div className="flex-1">
                 <h2 className="article-title">
-                  <a href={`/posts/${post.slug}`} className="hover:underline">
+                  <a href={`/post/${post.slug}`} className="hover:underline">
                     {post.title}
                   </a>
                 </h2>
@@ -32,7 +35,7 @@ export default async function Home() {
             </div>
             
             <div className="article-content prose prose-sm max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              {post.summary}
             </div>
             
             {post.tags && post.tags.length > 0 && (
@@ -50,13 +53,6 @@ export default async function Home() {
             )}
           </article>
         ))}
-      </div>
-      
-      <div className="mt-8 text-center">
-        <button className="btn btn-outline">
-          <Sparkles className="w-4 h-4 mr-2" />
-          加载更多
-        </button>
       </div>
     </div>
   );

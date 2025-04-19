@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Session } from 'next-auth';
 import { 
   Home, 
   PenSquare, 
@@ -13,8 +12,9 @@ import {
   Sparkles
 } from 'lucide-react';
 
-export default function Sidebar({ session }: { session: Session | null }) {
+export default function Sidebar() {
   return (
+    <aside className="sidebar">
     <nav className="space-y-2">
       <Link href="/" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
         <Home size={26} />
@@ -44,12 +44,6 @@ export default function Sidebar({ session }: { session: Session | null }) {
         <Sparkles size={26} />
         <span>Premium</span>
       </Link>
-      {session?.user?.role === 'admin' && (
-        <Link href="/write" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
-          <PenSquare size={26} />
-          <span>写文章</span>
-        </Link>
-      )}
       <Link href="/profile" className="flex items-center gap-4 p-3 text-xl hover:bg-[#1E2022] rounded-full transition-colors">
         <User size={26} />
         <span>个人资料</span>
@@ -59,5 +53,6 @@ export default function Sidebar({ session }: { session: Session | null }) {
         <span>更多</span>
       </Link>
     </nav>
+    </aside>
   );
 }
